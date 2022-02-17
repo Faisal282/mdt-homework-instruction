@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://faisalaffan.com">
-    <img src="https://d1fdloi71mui9q.cloudfront.net/Qp59itkNRXKoXVt9zguK_6Dpd6ln7zAW63WN4" alt="Logo" width=150 height=150>
+    <img src="https://d1fdloi71mui9q.cloudfront.net/Qp59itkNRXKoXVt9zguK_6Dpd6ln7zAW63WN4" alt="Logo" width=300 height=300>
   </a>
 
   <h3 align="center">Muhammad Faisal Affan Assignment</h3>
