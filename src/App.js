@@ -1,41 +1,73 @@
-import { Navbar, Container, Nav, Button } from 'react-bootstrap'
-import ReactDOM from 'react-dom';
+import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Link, Routes, Router, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+
+// Component
 import Home from './pages/Home'
-import PostIndex from './pages/posts/Index'
-import PostCreate from './pages/posts/Create'
-import PostEdit from './pages/posts/Edit'
-import { Provider } from "react-redux";
-import store from "./store";
-// import logo from './logo.svg';
-// import './assets/css/styles.scss';
+import UI from './helpers/ui';
+import Login from './pages/auth/login';
+import Register from './pages/auth/register';
+import './assets/css/styles.scss';
+import Transfer from './pages/Transfer';
 
-let App = () => (
-  <Provider store={store}>
-    <div>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand to="/">EXPRESS.JS + REACT.JS</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className="nav-link">HOME</Nav.Link>
-              <Nav.Link as={Link} to="/posts" className="nav-link">POSTS</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+// Helpers
+import Helpers from './helpers'
 
+let useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(UI.getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(UI.getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+let App = () => {
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (token === null || token === undefined) {
+      Helpers.getToken().then(a => {
+        setToken(a);
+      });
+    }
+  })
+  console.log(useWindowDimensions().width);
+
+  if (useWindowDimensions().width >= 1000) {
+    return (
+      <div>
+        <h1>You must opened on mobile / tablet resolution. Please Resize It :)</h1>
+      </div>
+    )
+  }
+
+  const NotFoundRoute = () => {
+    return (
+      <h1>
+        Can't find this route 404
+      </h1>
+    )
+  }
+
+  return (
+    <div className='content'>
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/posts" element={<PostIndex />} />
-        <Route exact path="/posts/create" element={<PostCreate />} />
-        <Route exact path="/posts/edit/:id" element={<PostEdit />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/" element={token == null ? <Login /> : <Home />} />
+        <Route exact path="/transfer" element={token == null ? <Login /> : <Transfer />} />
+        <Route exact path="*" element={<NotFoundRoute />} />
       </Routes>
 
     </div>
-  </Provider>
-)
+  )
+}
 
 export default App;
