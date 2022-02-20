@@ -38,7 +38,7 @@ let App = () => {
       });
     }
   })
-  console.log(useWindowDimensions().width);
+  // console.log(useWindowDimensions().width);
 
   if (useWindowDimensions().width >= 1000) {
     return (

@@ -4,7 +4,7 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import App from '../src/App';
+import CardBalanceHistory from '../../src/components/Balance/CardBalanceHistory';
 import { Link } from "react-router-dom";
 import sinon from "sinon";
 
@@ -35,7 +35,7 @@ describe("Render app", function () {
   // });
 
   it('renders learn react link', () => {
-    render(<App />);
+    render(<CardBalanceHistory />);
     // const linkElement = screen.getByText(/learn react/i);
     // console.log(linkElement);
     // expect(linkElement).toBeInTheDocument();

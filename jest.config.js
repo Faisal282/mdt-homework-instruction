@@ -28,9 +28,9 @@ const config = {
     "node"
   ],
   collectCoverageFrom: [
-    "src/pages/**",
+    // "src/pages/**",
     "src/components/**",
-    "src/App.js",
+    // "src/App.js",
   ],
 };
 
